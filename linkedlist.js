@@ -28,6 +28,20 @@ class LinkedList {
         return this;
     }
 
+    reverse () {
+        let prev = null;
+        let next = null;
+        let current = this.head;
+        while (current) {
+            next = current.next;
+            current.next = prev;
+            prev = current;
+            current = next;
+        }
+        this.head = prev;
+        return this.head;
+    }
+
     printList () {
         let output = '( ';
         let current = this.head;
