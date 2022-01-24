@@ -1,9 +1,4 @@
-class Node {
-    constructor (data = null) {
-        this.data = data;
-        this.next = null;
-    }
-}
+const Node = require('./node');
 
 class LinkedList {
     constructor () {
@@ -43,7 +38,7 @@ class LinkedList {
     }
 
     printList () {
-        let output = '( ';
+        let output = 'Linked List: ( ';
         let current = this.head;
         while (current) {
             output += `${current.data} -> `;
