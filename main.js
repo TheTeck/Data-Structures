@@ -10,3 +10,5 @@ console.log(tree.stringify())
 
 const heap = new Heap(34);
 console.log('Heap: ' + heap.stringify())
+
+console.log(heap.add(3))
