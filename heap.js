@@ -1,32 +1,69 @@
 class Heap {
-    #size;
-
-    constructor (data = null) {
-        this.data = data;
-        this.left = null;
-        this.right = null;
-        this.#size = 1;
+    constructor () {
+        this.data = [];
     }
 
-    stringify () {
-        let output = this.data + ' ';
-        if (this.left)
-            output += this.left.stringify();
-        if (this.right) 
-            output += this.right.stringify();
-        return output;
+    getParentIndex(i) {
+        return Math.floor((i - 1) / 2);
     }
 
-    add (data) {
-        let fullHeight = 0;
-        let level = 0;
-        while (fullHeight <= this.#size) {
-            fullHeight += 2 ** level;
-            level++;
+    getLeftChildIndex(i) {
+        return i * 2 + 1;
+    }
+
+    getRightChildIndex(i) {
+        return i * 2 + 2;
+    }
+
+    swap (i1, i2) {
+        const temp = this.data[i1];
+        this.data[i1] = this.data[i2];
+        this.data[i2] = temp;
+    }
+
+    push (key) {
+        this.data[this.data.length] = key;
+        this.heapifyUp();
+    }
+
+    poll () {
+        const maxValue = this.data[0];
+        this.data[0] = this.data[this.data.length - 1];
+        this.data.length--;
+        this.heapifyDown();
+
+        return maxValue;
+    }
+
+    heapifyUp () {
+        let currentIndex = this.data.length - 1;
+
+        while (this.data[currentIndex] > this.data[this.getParentIndex(currentIndex)]) {
+            this.swap(currentIndex, this.getParentIndex(currentIndex));
+
+            currentIndex = this.getParentIndex(currentIndex);
+        } 
+    }
+
+    heapifyDown () {
+        let currentIndex = 0;
+
+        while (this.data[this.getLeftChildIndex(currentIndex)] !== undefined) {
+            let biggestChildIndex = this.getLeftChildIndex(currentIndex);
+
+            if (this.data[this.getRightChildIndex(currentIndex)]
+                && this.data[this.getRightChildIndex(currentIndex)]
+                > this.data[this.getLeftChildIndex(currentIndex)]) {
+                    biggestChildIndex = this.getRightChildIndex(currentIndex);
+            }
+            
+            if (this.data[currentIndex] < this.data[biggestChildIndex]) {
+                this.swap(currentIndex, biggestChildIndex);
+                currentIndex = biggestChildIndex;
+            } else {
+                return;
+            }
         }
-        // Got level to add new node to, now add recursive insertion
-        // with level as boundary
-        return level
     }
 }
 
