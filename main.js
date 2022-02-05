@@ -4,11 +4,22 @@ const Stack = require('./stack');
 const BinaryTree = require('./binarytree');
 const Heap = require('./heap');
 
-const tree = new BinaryTree(50);
-tree.add(25).add(55).add(30).add(20).add(60).add(70);
-console.log(tree.stringify())
+const heap = new Heap();
 
-const heap = new Heap(34);
-console.log('Heap: ' + heap.stringify())
+console.log(heap);
 
-console.log(heap.add(3))
+heap.push(25);
+heap.push(5);
+heap.push(40);
+heap.push(70);
+heap.push(90);
+
+const output = [];
+
+output.push(heap.poll());
+output.push(heap.poll());
+output.push(heap.poll());
+output.push(heap.poll());
+
+
+console.log(output);
